@@ -90,7 +90,6 @@ public class Robot extends TimedRobot
         if( Winch_CurrentCount > ( Winch_TargetCount - 500) )
         {
           motor.set(ControlMode.PercentOutput, -0.10);
-          
           Winch_State = 2;
         }
         else
@@ -103,8 +102,7 @@ public class Robot extends TimedRobot
         Winch_CurrentCount = enc.get();
         if( Winch_CurrentCount > ( Winch_TargetCount ) )
         {
-          motor.set(ControlMode.PercentOutput, 0.0);
-          
+          motor.set(ControlMode.PercentOutput, 0.0);       
           Winch_State = 0;
         }
         else
