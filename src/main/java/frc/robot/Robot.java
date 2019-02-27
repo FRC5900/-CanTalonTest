@@ -8,12 +8,15 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Encoder;
+
 
 
 
@@ -36,7 +39,8 @@ public class Robot extends TimedRobot
   TalonSRX motor = new TalonSRX(0);
   Talon motor2 = new Talon(0);
   Encoder enc = new Encoder(0, 1, true, Encoder.EncodingType.k1X);
- 
+  VictorSPX motor3 = new VictorSPX(1);
+
   int Winch_State;
   int Winch_TargetCount;
   int Winch_CurrentCount;
@@ -46,6 +50,7 @@ public class Robot extends TimedRobot
   public void robotInit() 
   {
     motor.set(ControlMode.PercentOutput, 0);
+    motor3.set(ControlMode.PercentOutput, 0);
     m_joystick = new Joystick(kJoystickPort);
     enc.setMaxPeriod(.1);
     enc.setMinRate(10);
@@ -90,11 +95,13 @@ public class Robot extends TimedRobot
         if( Winch_CurrentCount > ( Winch_TargetCount - 500) )
         {
           motor.set(ControlMode.PercentOutput, -0.10);
+          motor3.set(ControlMode.PercentOutput, -0.10);
           Winch_State = 2;
         }
         else
         {
-          motor.set(ControlMode.PercentOutput, -0.25);
+          motor.set(ControlMode.PercentOutput, -0.95);
+          motor3.set(ControlMode.PercentOutput, -0.95);
         }
         break;
 
@@ -102,18 +109,21 @@ public class Robot extends TimedRobot
         Winch_CurrentCount = enc.get();
         if( Winch_CurrentCount > ( Winch_TargetCount ) )
         {
-          motor.set(ControlMode.PercentOutput, 0.0);       
+          motor.set(ControlMode.PercentOutput, 0.0); 
+          motor3.set(ControlMode.PercentOutput, 0.0);      
           Winch_State = 0;
         }
         else
         {
           motor.set(ControlMode.PercentOutput, -0.10);
+          motor3.set(ControlMode.PercentOutput, -0.10);
         }
         break;
 
       default:
         Winch_State = 0;
         motor.set(ControlMode.PercentOutput, 0.0);
+        motor3.set(ControlMode.PercentOutput, 0.0);
         break;
 
 
