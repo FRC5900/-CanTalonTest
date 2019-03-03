@@ -9,7 +9,6 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +32,7 @@ public class Robot extends TimedRobot
 {
   private static final int kJoystickPort = 0;
   private Joystick m_joystick;
-
+  
   int encoder_value;
 
   TalonSRX motor = new TalonSRX(0);
@@ -41,14 +40,17 @@ public class Robot extends TimedRobot
   Encoder enc = new Encoder(0, 1, true, Encoder.EncodingType.k1X);
   VictorSPX motor3 = new VictorSPX(1);
 
+ 
   int Winch_State;
   int Winch_TargetCount;
+  
   int Winch_CurrentCount;
 
 
   @Override
   public void robotInit() 
   {
+   
     motor.set(ControlMode.PercentOutput, 0);
     motor3.set(ControlMode.PercentOutput, 0);
     m_joystick = new Joystick(kJoystickPort);
